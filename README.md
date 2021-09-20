@@ -11,7 +11,7 @@
 4. User could save the image to the Galery.
 
 ### Use Retrofit to call REST API
-### Use static code analyzers(detect and ktlint)
+### Use static code analyzers(detekt and ktlint)
 
 ## Optional:
 1. You can try Kotlin scripts for build system.
