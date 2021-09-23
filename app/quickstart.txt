@@ -1,0 +1,10 @@
+Quickstart - Get a random Kitty
+
+Using the language / framework of your choice:
+
+    Load https://api.thecatapi.com/v1/images/search
+    Get the first Array object of the JSON response
+    Load it’s .url
+    Enjoy the kitty 😺
+
+Bonus: Add a button to repeat the request for a new kitty!
