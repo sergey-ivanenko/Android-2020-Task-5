@@ -8,12 +8,11 @@ import kotlinx.coroutines.withContext
 
 object CatListRepositoryImpl : CatListRepository {
 
-    override suspend fun getCatList(): List<CatItem> {
+    override suspend fun getCatList(page: Int): List<CatItem> {
         return withContext(Dispatchers.IO) {
-            CatApiApp.configureRetrofit().getCatList().map { catApi ->
+            CatApiApp.configureRetrofit().getCatList(page).map { catApi ->
                 CatItem(catApi.id, catApi.url)
             }
         }
-
     }
 }

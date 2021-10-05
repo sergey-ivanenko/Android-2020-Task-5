@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,14 +36,23 @@ class CatListFragment : Fragment() {
         views {
             recyclerView.adapter = CatListAdapter()
             recyclerView.layoutManager = GridLayoutManager(context, 2)
+
+            scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener {
+                    v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if (v != null) {
+                    if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                        renderCatList(page.plus(1))
+                    }
+                }
+            })
         }
 
-        renderCatList()
+        renderCatList(page)
     }
 
-    private fun renderCatList() {
-        catViewModel.items.observe(viewLifecycleOwner, { catList ->
-            adapter.catList = catList
+    private fun renderCatList(page: Int = 0) {
+        catViewModel.getCatList(page).observe(viewLifecycleOwner, { catList ->
+            adapter.catList += catList
         })
     }
 
@@ -51,5 +61,9 @@ class CatListFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        private var page: Int = 0
     }
 }

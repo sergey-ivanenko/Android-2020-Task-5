@@ -18,11 +18,22 @@ class CatViewModel(/*private val repository: CatListRepository*/) : ViewModel() 
     private val _items = MutableLiveData<List<CatItem>>()
     val items: LiveData<List<CatItem>> get() = _items
 
-    init {
+    /*init {
         viewModelScope.launch {
             _items.value = getCatListUseCase.getCatList()
         }
+    }*/
+
+    fun getCatList(page: Int): LiveData<List<CatItem>> {
+        val catListData = MutableLiveData<List<CatItem>>()
+        viewModelScope.launch {
+            catListData.value = getCatListUseCase.getCatList(page)
+        }
+
+        return catListData
     }
+
+
 
     /*val catList =
         getCatListUseCase.getCatList().shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)*/
@@ -33,5 +44,4 @@ class CatViewModel(/*private val repository: CatListRepository*/) : ViewModel() 
         }
 
     }*/
-
 }
