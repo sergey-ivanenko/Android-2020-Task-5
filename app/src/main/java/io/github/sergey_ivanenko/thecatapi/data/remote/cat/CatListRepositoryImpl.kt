@@ -1,0 +1,19 @@
+package io.github.sergey_ivanenko.thecatapi.data.remote.cat
+
+import io.github.sergey_ivanenko.thecatapi.CatApiApp
+import io.github.sergey_ivanenko.thecatapi.domain.CatItem
+import io.github.sergey_ivanenko.thecatapi.domain.CatListRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+object CatListRepositoryImpl : CatListRepository {
+
+    override suspend fun getCatList(): List<CatItem> {
+        return withContext(Dispatchers.IO) {
+            CatApiApp.configureRetrofit().getCatList().map { catApi ->
+                CatItem(catApi.id, catApi.url)
+            }
+        }
+
+    }
+}
