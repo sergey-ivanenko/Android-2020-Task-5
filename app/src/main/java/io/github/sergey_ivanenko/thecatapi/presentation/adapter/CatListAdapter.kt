@@ -1,10 +1,13 @@
 package io.github.sergey_ivanenko.thecatapi.presentation.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import io.github.sergey_ivanenko.thecatapi.R
 import io.github.sergey_ivanenko.thecatapi.databinding.CatItemBinding
 import io.github.sergey_ivanenko.thecatapi.domain.CatItem
 
@@ -26,12 +29,18 @@ class CatListAdapter : RecyclerView.Adapter<CatListAdapter.CatViewHolder>() {
 
         fun onBind(item: CatItem) {
             this.item = item
-            /*binding.catImage.load(item.url) {
-                crossfade(true)
-                crossfade(1000)
-            }*/
             views {
-                catImage.load(item.url)
+                catImage.load(item.url) {
+                    crossfade(true)
+                    crossfade(1000)
+                }
+                catItem.setOnClickListener {
+                    val args = Bundle()
+                    args.putString("currentId", item.id)
+                    args.putString("currentUrl", item.url)
+                    it.findNavController()
+                        .navigate(R.id.action_catListFragment_to_catDetailFragment, args)
+                }
             }
         }
 

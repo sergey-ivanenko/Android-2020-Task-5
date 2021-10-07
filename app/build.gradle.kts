@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
-    kotlin("android")
     id("kotlin-android")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -46,6 +46,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.3.6")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
     implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.0.1")
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
@@ -76,4 +77,7 @@ dependencies {
     val lifecycle_version = "2.3.1"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
+    // Animator
+    /*implementation("jp.wasabeef:recyclerview-animators:4.0.2")*/
 }

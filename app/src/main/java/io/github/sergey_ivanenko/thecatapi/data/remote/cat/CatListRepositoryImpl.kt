@@ -15,4 +15,12 @@ object CatListRepositoryImpl : CatListRepository {
             }
         }
     }
+
+    override suspend fun getCatImageById(imageId: String): CatItem {
+        return withContext(Dispatchers.IO) {
+            val catApiDataItem = CatApiApp.configureRetrofit().getCatImageById(imageId)
+            val cat = CatItem.CatMapper.from(catApiDataItem)
+            cat
+        }
+    }
 }

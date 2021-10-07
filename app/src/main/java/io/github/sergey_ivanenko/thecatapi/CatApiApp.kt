@@ -18,6 +18,9 @@ class CatApiApp : Application() {
     }
 
     companion object {
+        private const val BASE_URL = "https://api.thecatapi.com/v1/images/"
+        private const val HEADER_NAME = "x-api-key"
+        private const val HEADER_VALUE = "45cd65e4-aaa9-4e43-be53-4879d3a8e9cf"
         /*private */fun configureRetrofit(): CatApi {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -25,7 +28,7 @@ class CatApiApp : Application() {
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor { chain ->
                     val request = chain.request().newBuilder()
-                        .addHeader("x-api-key", "45cd65e4-aaa9-4e43-be53-4879d3a8e9cf")
+                        .addHeader(HEADER_NAME, HEADER_VALUE)
                         .build()
 
                     return@addInterceptor chain.proceed(request)
@@ -34,7 +37,7 @@ class CatApiApp : Application() {
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.thecatapi.com/v1/images/")
+                .baseUrl(BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
